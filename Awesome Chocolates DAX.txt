@@ -1,0 +1,89 @@
+Awesome Chocolates DAX
+_Boxes This Month = 
+VAR latest_date = [Latest date]
+RETURN
+CALCULATE([Total Boxes],'calendar'[Start of Month]=latest_date)
+
+_Cost This Month = 
+VAR latest_date = [Latest date]
+RETURN
+CALCULATE([Total Cost],'calendar'[Start of Month]=latest_date)
+
+_MoM Cost % = 
+VAR latest_date = [Latest date]
+VAR this_month_cost = CALCULATE([Total Cost],'calendar'[Start of Month]=latest_date)
+VAR prev_month_cost = CALCULATE([Total Cost],'calendar'[Start of Month]=EDATE(latest_date,-1))
+RETURN
+DIVIDE(this_month_cost-prev_month_cost,prev_month_cost)
+
+_MoM Latest Boxes % = 
+VAR latest_date = [Latest date]
+VAR this_month_boxes = CALCULATE([Total Boxes],'calendar'[Start of Month]=latest_date)
+VAR prev_month_boxes = CALCULATE([Total Boxes],'calendar'[Start of Month]=EDATE(latest_date,-1))
+RETURN
+DIVIDE(this_month_boxes-prev_month_boxes,prev_month_boxes)
+
+_MoM Profit % = 
+VAR latest_date = [Latest date]
+VAR this_month_profit = CALCULATE([Total Profit],'calendar'[Start of Month]=latest_date)
+VAR prev_month_profit = CALCULATE([Total Profit],'calendar'[Start of Month]=EDATE(latest_date,-1))
+RETURN
+DIVIDE(this_month_profit-prev_month_profit,prev_month_profit)
+
+_MoM Shipments % = 
+VAR latest_date = [Latest date]
+VAR this_month_shipments = CALCULATE([Total Shipments],'calendar'[Start of Month]=latest_date)
+VAR prev_month_shipments = CALCULATE([Total Shipments],'calendar'[Start of Month]=EDATE(latest_date,-1))
+RETURN
+DIVIDE(this_month_shipments-prev_month_shipments,prev_month_shipments)
+
+_Profit This Month = 
+VAR latest_date = [Latest date]
+RETURN
+CALCULATE([Total Profit],'calendar'[Start of Month]=latest_date)
+
+_Shipments This Month = 
+VAR latest_date = [Latest date]
+RETURN
+CALCULATE([Total Shipments],'calendar'[Start of Month]=latest_date)
+
+Latest date = LASTDATE('calendar'[Start of Month])
+
+Latest Sales MoM % = 
+VAR latest_date = [Latest date]
+VAR this_month_sales = [Total sales latest month]
+VAR prev_month_sales = CALCULATE([Total Sales], 'calendar'[Start of Month] = EDATE(latest_date, -1))
+RETURN
+DIVIDE(this_month_sales-prev_month_sales,prev_month_sales)
+
+LBS % = DIVIDE([LBS Count],[Total Shipments])
+
+LBS Count = CALCULATE([Total Shipments], shipments[Boxes] <50)
+
+MoM Boxes % = 
+VAR Prev_month = CALCULATE([Total Boxes],PREVIOUSMONTH('calendar'[Date]))
+RETURN
+DIVIDE([Total Boxes] - Prev_month,Prev_month)
+
+MoM Cost Change % = 
+VAR Prev_month = CALCULATE([Total Cost],PREVIOUSMONTH('calendar'[Date]))
+RETURN
+DIVIDE([Total Cost] - Prev_month,Prev_month)
+
+MoM Profit Change % = 
+VAR Prev_month = CALCULATE([Total Profit],PREVIOUSMONTH('calendar'[Date]))
+RETURN
+DIVIDE([Total Profit] - Prev_month,Prev_month)
+
+MoM Sales % = 
+VAR Prev_month = CALCULATE([Total Sales],PREVIOUSMONTH('calendar'[Date]))
+RETURN
+DIVIDE([Total Sales] - Prev_month,Prev_month)
+
+MoM Shipments Change % = 
+VAR Prev_month = CALCULATE([Total Shipments],PREVIOUSMONTH('calendar'[Date]))
+RETURN
+DIVIDE([Total Shipments] - Prev_month,Prev_month)
+
+Profit % = DIVIDE([Total Profit],[Total Sales])
+
